@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <button onclick="getContacts()">Hent kontakter</button>
+    <div id="app"></div>
+    <script>
+        const model = {
+            contacts: [],
+        };
+
+        function updateView() {
+            const app = document.getElementById('app');
+            const contacts = model.contacts;
+
+            if (contacts.length == 0) {
+                app.innerHTML = '<i>Ingen kontaker</i>';
+                return;
+            }
+
+            let html = '';
+            for (let contact of contacts) {
+                html += `<li>${contact.name} ${contact.email}</li>`;
+            }
+            app.innerHTML = `<ul>${html}</ul>`;
+        }
+
+        async function getContacts() {
+            const response = await axios.get('/api/contact');
+            model.contacts = response.data;
+            updateView();
+        }
+
+
+
+
+    </script>
+</body>
+</html>
