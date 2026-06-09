@@ -7,7 +7,8 @@
 </head>
 <body>
     <button onclick="getContacts()">Hent kontakter</button>
-    <hr/>
+<hr/>
+
     <div id="app"></div>
     <script>
         const model = {
@@ -20,29 +21,7 @@
         getContacts();
         function updateView() {
             const app = document.getElementById('app');
-
-            if (model.error) {
-                app.innerHTML = `<span style="color: red">
-                    <b>Feil</b><br/>
-                    ${model.error}
-                </span>
-                `;
-                model.error = null;
-                return;
-            }
-
-            const contacts = model.contacts;
-
-            if (contacts.length == 0) {
-                app.innerHTML = '<i>Ingen kontaker</i>';
-                return;
-            }
-
-            let html = '';
-            for (let contact of contacts) {
-                html += `<li>${contact.name} ${contact.email}</li>`;
-            }
-            app.innerHTML = `
+            const formHtml = `
                 <input
                     type="text"
                     placeholder="Navn"
@@ -59,8 +38,31 @@
                 <button onclick="addContact()">Legg til kontakt</button>
 
                 <hr/>
-                <ul>${html}</ul>
+            `;
 
+            if (model.error) {
+                app.innerHTML = formHtml + `<span style="color: red">
+                    <b>Feil</b><br/>
+                    ${model.error}
+                </span>
+                `;
+                model.error = null;
+                return;
+            }
+
+            const contacts = model.contacts;
+
+            if (contacts.length == 0) {
+                app.innerHTML = formHtml + '<i>Ingen kontaker</i>';
+                return;
+            }
+
+            let html = '';
+            for (let contact of contacts) {
+                html += `<li>${contact.name} ${contact.email}</li>`;
+            }
+            app.innerHTML = formHtml + `               
+                <ul>${html}</ul>
             `;
         }
 
