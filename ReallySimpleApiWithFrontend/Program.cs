@@ -13,7 +13,13 @@ var contacts = new List<Contact>
 
 app.MapGet("/api/contact", () =>
 {
+    Console.WriteLine(DateTime.Now + " - Leste alle kontaktene");
     return contacts;
+});
+app.MapPost("/api/contact", (Contact contact) =>
+{
+    Console.WriteLine(DateTime.Now + $" - La til kontakten {contact.Name}");
+    contacts.Add(contact);
 });
 app.UseStaticFiles();
 app.Run();
