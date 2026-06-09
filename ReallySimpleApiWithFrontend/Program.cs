@@ -21,5 +21,45 @@ app.MapPost("/api/contact", (Contact contact) =>
     Console.WriteLine(DateTime.Now + $" - La til kontakten {contact.Name}");
     contacts.Add(contact);
 });
+app.MapGet("/kenneth", () =>
+    Results.Content("""
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Kenneth spinner</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                height: 100vh;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                background: black;
+                                overflow: hidden;
+                            }
+                    
+                            h1 {
+                                font-size: 120px;
+                                font-family: Arial, sans-serif;
+                                color: white;
+                                animation: spin 2s linear infinite;
+                            }
+                    
+                            @keyframes spin {
+                                from {
+                                    transform: rotate(0deg);
+                                }
+                                to {
+                                    transform: rotate(360deg);
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>Kenneth</h1>
+                    </body>
+                    </html>
+                    """,
+        "text/html"));
 app.UseStaticFiles();
 app.Run();
